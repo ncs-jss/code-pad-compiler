@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Compiler</title>
+	<style type="text/css" media="screen">
+	    #editor { 
+	        position: absolute;
+	        height: 500px;
+	        width: 700px;
+	    }
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<form id="code">
+	Lang
+	<input type="text" name="lang" id="code-lang">
+	<button>Compile and Run</button>
+	<br>
+	Result
+	<br>
+	<textarea cols="50" rows="5" id="code-result"></textarea>
+	<br>
+	Code
+	<br>
+	<div id="editor"></div>
+	<br>
+	
+</form>
+    
+<script src="js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+</body>
+</html>

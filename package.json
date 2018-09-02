@@ -1,0 +1,25 @@
+{
+  "name": "code_compiler",
+  "version": "1.0.0",
+  "description": "Code Compiler",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shobhit1997/Code_Compiler.git"
+  },
+  "author": "Shobhit Agarwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shobhit1997/Code_Compiler/issues"
+  },
+  "homepage": "https://github.com/shobhit1997/Code_Compiler#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "compile-run": "^2.1.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.12"
+  }
+}
