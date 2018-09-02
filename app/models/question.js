@@ -9,7 +9,7 @@ var QuestionSchema = new Schema({
 	},
 	day:Number,
 	input:[String],
-	ouput:[String]
+	output:[String]
 });
 module.exports= mongoose.model('Question',QuestionSchema);
 

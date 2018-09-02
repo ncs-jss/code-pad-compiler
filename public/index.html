@@ -2,33 +2,39 @@
 <html>
 <head>
 	<title>Compiler</title>
-	<style type="text/css" media="screen">
-	    #editor { 
-	        position: absolute;
-	        height: 500px;
-	        width: 700px;
-	    }
-	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<form id="code">
-	Lang
-	<input type="text" name="lang" id="code-lang">
-	<button>Compile and Run</button>
-	<br>
-	Result
-	<br>
-	<textarea cols="50" rows="5" id="code-result"></textarea>
-	<br>
-	Code
-	<br>
-	<div id="editor"></div>
-	<br>
-	
-</form>
-    
-<script src="js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<div>
+<label>Day</label>
+<select id="day">
+	<option value="day 1">1</option>
+	<option value="day 2">2</option>
+	<option value="day 3">3</option>
+</select>
+</div>
+<div>
+	<ul id="ques-list">
+	</ul>
+</div>
 <script type="text/javascript" src="/js/index.js"></script>
+
+<script id="ques-template" type="text/template">
+<li>
+	<div>
+		<h3>{{question}}</h3>
+	</div>
+	<div>
+	<textarea readonly rows="4" cols="40">{{input}}</textarea>
+	</div>
+	<div>
+	<textarea readonly rows="4" cols="40">{{output}}</textarea>
+	</div>
+	<button id="{{ques_id}}">Submit</button>
+</li>	
+</script>
+<script type="text/javascript" src="/js/libs/mustache.js"></script>
+
+
 </body>
 </html>

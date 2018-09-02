@@ -13,7 +13,7 @@ var UserSchema = new Schema({
 		minlength: 7,
 		unique: true
 	},
-	question_solved:[Schema.ObjectId]
+	questions_solved:[Schema.ObjectId]
 });
 
 
