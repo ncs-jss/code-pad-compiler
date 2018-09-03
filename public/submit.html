@@ -4,6 +4,7 @@
 	<title>Compiler</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,11 +15,11 @@
 			<div class="columns is-desktop">
 				<div class="column">
 					<label>Name</label>
-					<input type="text" id="name" class="input">
+					<input type="text" id="name" class="input" required>
 				</div>
 				<div class="column">
 					<label>Admission Number</label>
-					<input type="text" id="adm_no" class="input">
+					<input type="text" id="adm_no" class="input" required>
 				</div>
 			</div>
 			<div class="columns">
@@ -36,7 +37,7 @@
 			</div>
 			<div class="columns">
 				<div class="column">
-					<button class="button is-info">Compile and Run</button>
+					<button class="button is-info" id="submit-button">Submit</button>
 				</div>
 			</div>
 			<div class="columns">
@@ -44,13 +45,10 @@
 					<label>Code</label>
 					<div id="editor"></div>
 				</div>
-				<div class="column">
-					<label>Result</label>
-					<textarea cols="50" rows="5" id="code-result" class="textarea" style="height: 400px;"></textarea>
-				</div>
 			</div>
 		</form>
 	</div>
+	<div class="notification" id="notify"></div>
 <script src="js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/js/submit.js"></script>
 <script type="text/javascript" src="/js/libs/deparam.js"></script>

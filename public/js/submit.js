@@ -12,14 +12,25 @@ $(document).ready(function(){
 
     jQuery('#code').on('submit',function(e){
     e.preventDefault();
+    $('#submit-button').addClass('is-loading');
      var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          
+          $('#submit-button').removeClass('is-loading');
           var result=JSON.parse(this.responseText);
           console.log(result);
-          $('#code-result').val(result.message+" answer");
-        }
+          if(result.message == 'correct'){
+            $('#notify').html('Correct');
+            $('#notify').addClass('is-success animate-peek'); 
+          }
+          if(result.message == 'wrong'){
+            $('#notify').html('Incorrect');
+            $('#notify').addClass('is-danger animate-peek'); 
+          }
+          setTimeout(()=>{
+            $('#notify').attr('class','notification')
+          },3500);
+          }
       };
       xhttp.open("POST", "http://localhost:8000/api/question/submit", true);
       xhttp.setRequestHeader("Content-type", "application/json");
