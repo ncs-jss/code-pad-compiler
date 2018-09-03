@@ -2,43 +2,55 @@
 <html>
 <head>
 	<title>Compiler</title>
-	<style type="text/css" media="screen">
-	    #editor { 
-	        position: absolute;
-	        height: 500px;
-	        width: 700px;
-	    }
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<form id="code">
-	Name
-	<input type="text" id="name">
-	<br>
-	Admission No.
-	<input type="text" id="adm_no">
-	<br>
-	Lang
-	<select id="lang">
-		<option value="c">C</option>
-		<option value="cpp">C++</option>
-		<option value="java">Java</option>
-		<option value="python">Python</option>
-	</select>
-	<button>Compile and Run</button>
-	<br>
-	Result
-	<br>
-	<textarea cols="50" rows="5" id="code-result"></textarea>
-	<br>
-	Code
-	<br>
-	<div id="editor"></div>
-	<br>
-	
-</form>
-    
+	<div class="content">
+		<form id="code">
+			<div class="columns is-desktop">
+				<div class="column">
+					<label>Name</label>
+					<input type="text" id="name" class="input">
+				</div>
+				<div class="column">
+					<label>Admission Number</label>
+					<input type="text" id="adm_no" class="input">
+				</div>
+			</div>
+			<div class="columns">
+				<div class="column" style="height: 60px;z-index: 1">
+					<div class="select">
+						<label>Language</label>
+						<select id="lang">
+							<option value="c">C</option>
+							<option value="cpp">C++</option>
+							<option value="java">Java</option>
+							<option value="python">Python</option>
+						</select>
+					</div>	
+				</div>
+			</div>
+			<div class="columns">
+				<div class="column">
+					<button class="button is-info">Compile and Run</button>
+				</div>
+			</div>
+			<div class="columns">
+				<div class="column">
+					<label>Code</label>
+					<div id="editor"></div>
+				</div>
+				<div class="column">
+					<label>Result</label>
+					<textarea cols="50" rows="5" id="code-result" class="textarea" style="height: 400px;"></textarea>
+				</div>
+			</div>
+		</form>
+	</div>
 <script src="js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/js/submit.js"></script>
 <script type="text/javascript" src="/js/libs/deparam.js"></script>

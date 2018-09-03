@@ -1,0 +1,90 @@
+body{
+	color: #555!important;
+	font-family: 'Roboto',sans-serif;
+}
+.content{
+	margin:50px auto;
+	width: 60vw;
+	text-align: center;
+}
+.select{
+	margin:0 auto;
+	margin-bottom: 50px;
+}
+.select select{
+	display: inline-block;
+}
+input{
+	margin-top: 5px;
+}
+label{
+	line-height: 2.25em;
+	padding: 8px 15px;
+	font-weight: 500;
+	background: #eee;
+	border-radius: 3px;
+}
+textarea{
+	margin-top: 10px;
+	font-family: monospace;
+}
+#editor{
+	border: 1px solid #dbdbdb;
+	box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
+	border-radius: 4px;
+	margin-top: 10px;
+	max-width:100%;
+	min-width: 100%;
+	height: 400px;
+}
+#editor:hover{
+	border-color: #b9b9b9;
+}
+.ace_focus{
+	border-color: #3273dc!important;
+	box-shadow: 0 0 5px rgba(50,115,220, 0.4)!important;
+}
+#ques-list{
+	list-style: none;
+}
+#ques-list li{
+	margin-bottom:50px;
+}
+.question h3{
+	text-align: left;
+	color: #333;
+	letter-spacing: 0.1px;
+	line-height: 1.3em;
+}
+.input-field,.output-field{
+	width: 500px;
+	margin: auto;
+}
+.input-field h6,.output-field h6{
+	color: #666;
+	font-weight: 400;
+	text-align: left;
+	margin-top: 8px;
+	margin-bottom: 4px;
+}
+.output-field{
+	margin-bottom: 10px;
+}
+.button{
+	font-family: 'Roboto',sans-serif;
+	margin-top: 5px;
+}
+@media only screen and (max-width: 900px) {
+	.content{
+		width: 90vw!important;
+	}
+}
+@media only screen and (max-width: 600px) {
+	.content{
+		width: 90vw!important;
+	}
+	.input-field,.output-field{
+	width: 70vw;
+	margin: auto;
+}
+}
