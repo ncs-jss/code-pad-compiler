@@ -11,15 +11,22 @@ $(document).ready(function(){
 
 
     jQuery('#code').on('submit',function(e){
-    e.preventDefault();
-     var xhttp = new XMLHttpRequest();
+      e.preventDefault();
+      jQuery('#submit').attr('disabled','disabled').text('Submitting.....');
+      var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           
           var result=JSON.parse(this.responseText);
-          console.log(result);
           $('#code-result').val(result.message+" answer");
+          $('#submit').removeAttr('disabled').text('Submit');
         }
+        else if(this.readyState == 4 && this.status == 200)
+        {
+          alert('Invalid Question');
+          window.location.href='/';
+        }
+        
       };
       xhttp.open("POST", "http://localhost:8000/api/question/submit", true);
       xhttp.setRequestHeader("Content-type", "application/json");

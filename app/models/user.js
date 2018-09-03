@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const _=require('lodash');
 var Schema = mongoose.Schema;
 var UserSchema = new Schema({
 	name :{
@@ -21,7 +22,7 @@ UserSchema.methods.toJSON=function(){
 	var user=this;
 	var  userObject= user.toObject();
 
-	return _.pick(userObject,['_id','name','phone','email','likedPosts','sharedPosts','follow','followers']); 
+	return _.pick(userObject,['_id','name','admission_no','questions_solved']); 
 }
 
 UserSchema.statics.findByCredentials=function(phone,password){
