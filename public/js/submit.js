@@ -28,7 +28,7 @@ $(document).ready(function(){
         }
         
       };
-      xhttp.open("POST", "http://localhost:8000/api/question/submit", true);
+      xhttp.open("POST", window.location.origin+"/api/question/submit", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       var jsonObj={
         code : editor.getValue(),

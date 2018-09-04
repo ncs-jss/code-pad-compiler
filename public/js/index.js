@@ -35,7 +35,7 @@ function getQuestion(day){
       window.location.href="/";
     }
   };
-  xhttp.open("GET", "http://localhost:8000/api/question/day/"+day, true);
+  xhttp.open("GET", window.location.origin+"/api/question/day/"+day, true);
   xhttp.setRequestHeader("Content-type", "application/json");
 
   xhttp.send();
