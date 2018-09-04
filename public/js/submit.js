@@ -11,22 +11,27 @@ $(document).ready(function(){
 
 
     jQuery('#code').on('submit',function(e){
-      e.preventDefault();
-      jQuery('#submit').attr('disabled','disabled').text('Submitting.....');
-      var xhttp = new XMLHttpRequest();
+    e.preventDefault();
+    $('#submit-button').addClass('is-loading');
+     var xhttp = new XMLHttpRequest();
+
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          
+          $('#submit-button').removeClass('is-loading');
           var result=JSON.parse(this.responseText);
-          $('#code-result').val(result.message+" answer");
-          $('#submit').removeAttr('disabled').text('Submit');
-        }
-        else if(this.readyState == 4 && this.status == 200)
-        {
-          alert('Invalid Question');
-          window.location.href='/';
-        }
-        
+          console.log(result);
+          if(result.message == 'correct'){
+            $('#notify').html('Correct');
+            $('#notify').addClass('is-success animate-peek'); 
+          }
+          if(result.message == 'wrong'){
+            $('#notify').html('Incorrect');
+            $('#notify').addClass('is-danger animate-peek'); 
+          }
+          setTimeout(()=>{
+            $('#notify').attr('class','notification')
+          },3500);
+          }
       };
       xhttp.open("POST", window.location.origin+"/api/question/submit", true);
       xhttp.setRequestHeader("Content-type", "application/json");
