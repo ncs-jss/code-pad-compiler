@@ -2,8 +2,26 @@ const Question= require('../.././app/models/question');
 const User= require('../.././app/models/user');
 const express=require('express');
 const _=require('lodash');
+const jwt=require('jsonwebtoken');
 const {c, cpp, node, python, java} = require('compile-run');
 const router=express.Router();
+
+authenticate=function(req,res,next){
+	try{
+
+		decoded= jwt.verify(req.header('x-auth'),process.env.JWT_SECRET);
+		if(decoded.username==process.env.USERNAME&&decoded.password==process.env.PASSWORD){
+
+			next();
+		}
+		else{
+			res.status(401).send();	
+		}
+
+	}catch(e){
+		res.status(401).send();
+	}	
+};
 
 router.route('/day/:id')
 	.get(function(req,res) {
@@ -21,7 +39,7 @@ router.route('/day/:id')
 		});
 	});
 router.route('/add')
-	.post(function(req,res){
+	.post(authenticate, function(req,res){
 		console.log(req.body);
 		var body=_.pick(req.body,['question','day','input','output']);
 		var question=new Question(body);
