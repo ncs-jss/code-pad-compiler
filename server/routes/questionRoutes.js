@@ -57,7 +57,8 @@ router.route('/submit')
 						}	
 					}
 					catch(error){
-						console.log(error)
+						console.log(error);
+						res.status(400).send();
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
@@ -78,7 +79,8 @@ router.route('/submit')
 						}	
 					}
 					catch(error){
-						console.log(error)
+						console.log(error);
+						res.status(400).send();
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
@@ -98,7 +100,8 @@ router.route('/submit')
 						}	
 					}
 					catch(error){
-						console.log(error)
+						console.log(error);
+						res.status(400).send();
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
@@ -120,6 +123,7 @@ router.route('/submit')
 					}
 					catch(error){
 						console.log(error)
+						res.status(400).send();
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
