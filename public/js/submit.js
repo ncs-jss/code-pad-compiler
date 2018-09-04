@@ -22,7 +22,8 @@ $(document).ready(function(){
           console.log(result);
           if(result.message == 'correct'){
             $('#notify').html('Correct');
-            $('#notify').addClass('is-success animate-peek'); 
+            $('#notify').addClass('is-success animate-peek');
+            $('#done-button').attr('class','button is-success'); 
           }
           if(result.message == 'wrong'){
             $('#notify').html('Incorrect');
