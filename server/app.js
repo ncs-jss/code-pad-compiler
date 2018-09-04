@@ -3,7 +3,9 @@ const publicPath = path.join(__dirname,'../public');
 const express=require('express');
 const  app=express();
 const bodyParser=require('body-parser');
-const router=require('./routes/questionRoutes');
+const questionRoutes=require('./routes/questionRoutes');
+const userRoutes=require('./routes/userRoutes');
+const router=express.Router();
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
@@ -15,7 +17,8 @@ app.use(function(req,res,next){
   
 	next();
 });
-
-app.use('/api/question',router);
+router.use('/question',questionRoutes);
+router.use('/user',userRoutes);
+app.use('/api',router);
 
 module.exports=app;

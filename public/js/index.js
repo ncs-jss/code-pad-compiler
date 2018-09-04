@@ -10,15 +10,14 @@ function getQuestion(day){
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var result=JSON.parse(this.responseText);
-      console.log(result);
       jQuery('#ques-list').empty();
       result.forEach(function(ques){
           var template = jQuery('#ques-template').html();
         
           var html = Mustache.render(template,{
             question : ques.question,
-            input : ques.input,
-            output : ques.output,
+            input : ques.input[0],
+            output : ques.output[0],
             ques_id:ques._id
            });
           jQuery('#ques-list').append(html);
@@ -31,8 +30,12 @@ function getQuestion(day){
           });
       });
     }
+    else if(this.readyState == 4 && this.status == 404){
+      alert('Event Not Found');
+      window.location.href="/";
+    }
   };
-  xhttp.open("GET", "http://localhost:8000/api/question/day/"+day, true);
+  xhttp.open("GET", window.location.origin+"/api/question/day/"+day, true);
   xhttp.setRequestHeader("Content-type", "application/json");
 
   xhttp.send();

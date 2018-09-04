@@ -14,6 +14,7 @@ $(document).ready(function(){
     e.preventDefault();
     $('#submit-button').addClass('is-loading');
      var xhttp = new XMLHttpRequest();
+
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           $('#submit-button').removeClass('is-loading');
@@ -32,7 +33,7 @@ $(document).ready(function(){
           },3500);
           }
       };
-      xhttp.open("POST", "http://localhost:8000/api/question/submit", true);
+      xhttp.open("POST", window.location.origin+"/api/question/submit", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       var jsonObj={
         code : editor.getValue(),
