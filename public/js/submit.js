@@ -37,9 +37,10 @@ $(document).ready(function(){
     $('#submit-button').addClass('is-loading');
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
+        console.log(this.responseText);
         if(this.readyState == 4 && this.status == 200) {
           $('#submit-button').removeClass('is-loading');
-          var result=JSON.parse(this.responseText);
+          var result=JSON.parse(this.status);
           if(result.message == 'correct'){
             $('#notify').html('Correct');
             $('#notify').addClass('is-success animate-peek');
@@ -52,6 +53,16 @@ $(document).ready(function(){
           setTimeout(()=>{
             $('#notify').attr('class','notification')
           },3500);
+        }
+        else if(this.readyState == 4 && this.status == 201){
+          $('#submit-button').removeClass('is-loading');
+          var result=JSON.parse(this.responseText);
+            $('#notify').html(result.errorType);
+            $('#notify').addClass('is-danger animate-peek'); 
+          
+          setTimeout(()=>{
+            $('#notify').attr('class','notification')
+          },3500); 
         }
       };
     xhttp.open("POST", window.location.origin+"/api/question/submit", true);

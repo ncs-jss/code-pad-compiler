@@ -68,7 +68,11 @@ router.route('/submit')
 					try{
 						var result=await java.runSource(sourcecode,{stdin:ques.input[i]});
 						console.log(result);
-						if(result.exitCode!=0||result.stdout.trim()!=ques.output[i]){
+						if(result.exitCode!=0){
+							res.status(201).send(result);
+							return 0;
+						}
+						else if(result.stdout.trim()!=ques.output[i]){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
@@ -76,7 +80,7 @@ router.route('/submit')
 					}
 					catch(error){
 						console.log(error);
-						res.status(400).send();
+						res.status(400).send(err);
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
@@ -90,7 +94,11 @@ router.route('/submit')
 					try{
 						var result=await c.runSource(sourcecode,{stdin:ques.input[i]});
 						console.log(result);
-						if(result.exitCode!=0||result.stdout.trim()!=ques.output[i]){
+						if(result.exitCode!=0){
+							res.status(201).send(result);
+							return 0;
+						}
+						else if(result.stdout.trim()!=ques.output[i]){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
@@ -111,7 +119,11 @@ router.route('/submit')
 					try{
 						var result=await cpp.runSource(sourcecode,{stdin:ques.input[i]});
 						console.log(result);
-						if(result.exitCode!=0||result.stdout.trim()!=ques.output[i]){
+						if(result.exitCode!=0){
+							res.status(201).send(result);
+							return 0;
+						}
+						else if(result.stdout.trim()!=ques.output[i]){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
@@ -133,7 +145,11 @@ router.route('/submit')
 					try{
 						var result=await python.runSource(sourcecode,{stdin:ques.input[i]});
 						console.log(result.stdout.trim());
-						if(result.exitCode!=0||result.stdout.trim()!=ques.output[i]){
+						if(result.exitCode!=0){
+							res.status(201).send(result);
+							return 0;
+						}
+						else if(result.stdout.trim()!=ques.output[i]){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
