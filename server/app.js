@@ -1,6 +1,7 @@
 const path= require('path');
 const publicPath = path.join(__dirname,'../public');
 const express=require('express');
+const helmet=require('helmet');
 const  app=express();
 const bodyParser=require('body-parser');
 const questionRoutes=require('./routes/questionRoutes');
@@ -9,6 +10,7 @@ const router=express.Router();
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
+app.use(helmet());
 app.use(function(req,res,next){
 	res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Expose-Headers', 'x-auth');

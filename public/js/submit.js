@@ -40,7 +40,7 @@ $(document).ready(function(){
         console.log(this.responseText);
         if(this.readyState == 4 && this.status == 200) {
           $('#submit-button').removeClass('is-loading');
-          var result=JSON.parse(this.status);
+          var result=JSON.parse(this.responseText);
           if(result.message == 'correct'){
             $('#notify').html('Correct');
             $('#notify').addClass('is-success animate-peek');

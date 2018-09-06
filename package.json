@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run apidoc && pm2 start server/pm2.config.js",
-    "apidoc": "apidoc -i server/routes/ -o public/apidoc", 
+    "apidoc": "apidoc -i server/routes/ -o public/apidoc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,11 +22,12 @@
     "body-parser": "^1.18.3",
     "compile-run": "^2.1.2",
     "express": "^4.16.3",
+    "helmet": "^1.1.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "mongoose": "^5.2.12"
   },
   "devDependencies": {
-    "apidoc": "^0.15.1"
+    "apidoc": "^0.17.6"
   }
 }

@@ -157,7 +157,11 @@ router.route('/submit')
 						var result=await java.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result);
 						if(result.exitCode!=0){
-							res.status(201).send(_.pick(result,['error','errorType']));
+							var json={
+								error:result.stderr.substring(result.stderr.indexOf('error')),
+								errorType:result.errorType
+							};
+							res.status(201).send(json);
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){
@@ -169,6 +173,7 @@ router.route('/submit')
 					catch(error){
 						console.log(error);
 						res.status(400).send(err);
+						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
@@ -183,7 +188,11 @@ router.route('/submit')
 						var result=await c.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result);
 						if(result.exitCode!=0){
-							res.status(201).send(_.pick(result,['error','errorType']));
+							var json={
+								error:result.stderr.substring(result.stderr.indexOf('error')),
+								errorType:result.errorType
+							};
+							res.status(201).send(json);
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){
@@ -195,6 +204,7 @@ router.route('/submit')
 					catch(error){
 						console.log(error);
 						res.status(400).send();
+						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
@@ -208,7 +218,11 @@ router.route('/submit')
 						var result=await cpp.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result);
 						if(result.exitCode!=0){
-							res.status(201).send(_.pick(result,['error','errorType']));
+							var json={
+								error:result.stderr.substring(result.stderr.indexOf('error')),
+								errorType:result.errorType
+							};
+							res.status(201).send(json);
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){
@@ -220,6 +234,7 @@ router.route('/submit')
 					catch(error){
 						console.log(error);
 						res.status(400).send();
+						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
@@ -234,7 +249,11 @@ router.route('/submit')
 						var result=await python.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result.stdout.trim());
 						if(result.exitCode!=0){
-							res.status(201).send(_.pick(result,['error','errorType']));
+							var json={
+								error:result.stderr.substring(result.stderr.indexOf('error')),
+								errorType:result.errorType
+							};
+							res.status(201).send(json);
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){
@@ -246,6 +265,7 @@ router.route('/submit')
 					catch(error){
 						console.log(error)
 						res.status(400).send();
+						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
