@@ -4,6 +4,8 @@
   "description": "Code Compiler",
   "main": "server.js",
   "scripts": {
+    "start": "npm run apidoc && pm2 start server/pm2.config.js",
+    "apidoc": "apidoc -i server/routes/ -o public/apidoc", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +25,8 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "mongoose": "^5.2.12"
+  },
+  "devDependencies": {
+    "apidoc": "^0.15.1"
   }
 }

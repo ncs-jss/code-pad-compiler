@@ -24,6 +24,28 @@ authenticate=function(req,res,next){
 };
 
 router.route('/day/:id')
+
+/**
+ * @api {get} /api/question/day/day_no. Return the questions for the day
+ * @apiGroup Questions
+ * @apiSuccess {Object[]} questions Question list
+ * @apiSuccess {String} questions._id Question id
+ * @apiSuccess {String} questions.question Question statement
+ * @apiSuccess {String[]} questions.input Question input
+ * @apiSuccess {String[]} questions.output Question output
+ * @apiSuccess {Number} questions.day Question day
+ * @apiSuccessExample {json} Success
+ * 	HTTP/1.1 200 OK
+*		[{
+*			"_id":"5b8d2e908a54035801ae7564",
+*			"question":"WAP to input two numbers and print sum.",
+*			"input":["5\n5","5\n4","5\n3"],
+*			"output":["10","9","8"],
+*			"day":1
+*		}]
+ * @apiErrorExample {json} Find error
+ * 	HTTP/1.1 404 NOT FOUND
+*/
 	.get(function(req,res) {
 		var day=req.params.id;
 		console.log(day);
@@ -39,6 +61,40 @@ router.route('/day/:id')
 		});
 	});
 router.route('/add')
+/**
+ * @api {post} /api/question/add Add questions
+ * @apiGroup Questions
+ * @apiParam {String} question Question statement
+ * @apiParam {String[]} input Question input
+ * @apiParam {String[]} output Question output
+ * @apiParam {Number} day Question day
+ * @apiParamExample {json} Input
+ *		{
+ *			"question":"WAP to input two numbers and print sum.",
+ *			"input":["5\n5","5\n4","5\n3"],
+ *			"output":["10","9","8"],
+ *			"day":1
+ *		}
+ * @apiHeader {String} Authorization Token of admin
+ * @apiHeaderExample {json} Header
+ * {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiSuccess {String} questions._id Question id
+ * @apiSuccess {String} questions.question Question statement
+ * @apiSuccess {String[]} questions.input Question input
+ * @apiSuccess {String[]} questions.output Question output
+ * @apiSuccess {String} questions.day Question day
+ * @apiSuccessExample {json} Success
+ * 	HTTP/1.1 200 OK
+*		{
+*			"_id":"5b8d2e908a54035801ae7564",
+*			"question":"WAP to input two numbers and print sum.",
+*			"input":["5\n5","5\n4","5\n3"],
+*			"output":["10","9","8"],
+*			"day":1
+*		}
+ * @apiErrorExample {json} Find error
+ * 	HTTP/1.1 401 Unauthorised
+*/
 	.post(authenticate, function(req,res){
 		console.log(req.body);
 		var body=_.pick(req.body,['question','day','input','output']);
@@ -50,6 +106,38 @@ router.route('/add')
 		});
 	});
 router.route('/submit')
+/**
+ * @api {post} /api/question/submit Submit solution
+ * @apiGroup Questions
+ * @apiParam {String} code Question solution
+ * @apiParam {String} lang Language used
+ * @apiParam {String} admission_no User Admission No.
+ * @apiParam {String} name User name
+ * @apiParam {String} ques_id Question id
+ * @apiParamExample {json} Input
+ *		{
+ *			"code":"#include.........",
+ *			"lang": "c/cpp/java/python",
+ *			"admission_no":"16it028",
+ *			"name":"Shobhit Agarwal",
+ *			"ques_id":"9875fdnkdnfowur9we93"
+ *		}
+ * @apiHeader {String} Authorization Token of admin
+ * @apiSuccess {String} status Submission Status
+ * @apiSuccess {String} message Solution Status
+ * @apiSuccessExample {json} Success
+ * 	HTTP/1.1 200 OK
+*		{
+*			"status":"success",
+*			"message":"Correct/Wrong"
+*		}
+* @apiErrorExample {json} Find error
+* 	HTTP/1.1 201 ERROR
+*		{
+*			"error":"nfnfnmlem[mswf",
+*			"errorType":"Compile_Time"
+*		} 
+*/
 	.post( async function(req,res){
 		console.log(req.body);
 		var sourcecode=req.body.code;
@@ -66,10 +154,10 @@ router.route('/submit')
 			if(lang==='java'){
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await java.runSource(sourcecode,{stdin:ques.input[i]});
+						var result=await java.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result);
 						if(result.exitCode!=0){
-							res.status(201).send(result);
+							res.status(201).send(_.pick(result,['error','errorType']));
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){
@@ -92,10 +180,10 @@ router.route('/submit')
 			else if(lang==='c'){
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await c.runSource(sourcecode,{stdin:ques.input[i]});
+						var result=await c.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result);
 						if(result.exitCode!=0){
-							res.status(201).send(result);
+							res.status(201).send(_.pick(result,['error','errorType']));
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){
@@ -117,10 +205,10 @@ router.route('/submit')
 			else if(lang==='cpp'){
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await cpp.runSource(sourcecode,{stdin:ques.input[i]});
+						var result=await cpp.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result);
 						if(result.exitCode!=0){
-							res.status(201).send(result);
+							res.status(201).send(_.pick(result,['error','errorType']));
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){
@@ -143,10 +231,10 @@ router.route('/submit')
 			else if(lang==='python'){
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await python.runSource(sourcecode,{stdin:ques.input[i]});
+						var result=await python.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
 						console.log(result.stdout.trim());
 						if(result.exitCode!=0){
-							res.status(201).send(result);
+							res.status(201).send(_.pick(result,['error','errorType']));
 							return 0;
 						}
 						else if(result.stdout.trim()!=ques.output[i]){

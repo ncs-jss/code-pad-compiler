@@ -24,6 +24,28 @@ authenticate=function(req,res,next){
 };
 
 router.route('/leaderboard')
+
+
+/**
+ * @api {get} /api/user/leaderboard Return leaderboard
+ * @apiGroup Users
+ * @apiHeader {String} Authorization Token of admin
+ * @apiHeaderExample {json} Header
+ * {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiSuccess {String[]} users User list
+ * @apiSuccess {String} users.name User name
+ * @apiSuccess {String[]} users.admission_no User admission_no
+ * @apiSuccess {String[]} users.questions_solved User Questions Solved
+ * @apiSuccessExample {json} Success
+ * 	HTTP/1.1 200 OK
+ *		[{
+ *		        "name": "Shubham",
+ *		        "admission_no": "17EC060",
+ *		        "questions_solved": 3
+ *		}]
+ * @apiErrorExample {json} Find error
+ * 	HTTP/1.1 401 NOT Authenticated
+*/
 	.get(authenticate, async function(req,res){
 		var users=await User.find();
 		users.sort(function (a, b) {
@@ -41,6 +63,27 @@ router.route('/leaderboard')
 	});
 
 router.route('/login')
+
+/**
+ * @api {post} /api/user/login Login Users
+ * @apiGroup Users
+ * @apiParam {String} username User username
+ * @apiParam {String} password User password
+ * @apiParamExample {json} Input
+ *		{
+ *			"username":"username",
+ *			"password":"password"
+ *		}
+ * @apiSuccess {String} message Login Status
+ * @apiSuccessExample {json} Success
+ * 	HTTP/1.1 200 OK Header {"x-auth": "JWT xyz.abc.123.hgf"}
+ *		{
+ *			"message":"Successful/Invalid Credentials"
+ *		}
+ * 	
+ * @apiErrorExample {json} Find error
+ * 	HTTP/1.1 401 Unauthorised
+*/
 	.post(function(req,res){
 		var username=req.body.username;
 		var password=req.body.password;
