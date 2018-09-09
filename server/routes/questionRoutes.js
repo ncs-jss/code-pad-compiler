@@ -187,7 +187,7 @@ const compileCode=async function(req,res,user,ques){
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i]){
+						else if(result.stdout.trim()!=ques.output[i].trim()){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
@@ -218,7 +218,7 @@ const compileCode=async function(req,res,user,ques){
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i]){
+						else if(result.stdout.trim()!=ques.output[i].trim()){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
@@ -248,7 +248,7 @@ const compileCode=async function(req,res,user,ques){
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i]){
+						else if(result.stdout.trim()!=ques.output[i].trim()){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
@@ -279,7 +279,7 @@ const compileCode=async function(req,res,user,ques){
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i]){
+						else if(result.stdout.trim()!=ques.output[i].trim()){
 							user=await user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
