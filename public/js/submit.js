@@ -40,7 +40,7 @@ $(document).ready(function(){
         console.log(this.responseText);
         if(this.readyState == 4 && this.status == 200) {
           $('#submit-button').removeClass('is-loading');
-          var result=JSON.parse(this.status);
+          var result=JSON.parse(this.responseText);
           if(result.message == 'correct'){
             $('#notify').html('Correct');
             $('#notify').addClass('is-success animate-peek');
@@ -57,9 +57,8 @@ $(document).ready(function(){
         else if(this.readyState == 4 && this.status == 201){
           $('#submit-button').removeClass('is-loading');
           var result=JSON.parse(this.responseText);
-            $('#notify').html(result.errorType);
+            $('#notify').html('Error: '+result.errorType);
             $('#notify').addClass('is-danger animate-peek'); 
-          
           setTimeout(()=>{
             $('#notify').attr('class','notification')
           },3500); 

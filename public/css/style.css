@@ -24,6 +24,7 @@ label.custom-label{
 textarea{
 	margin-top: 10px;
 	font-family: monospace;
+	resize: none!important;
 }
 #editor{
 	border: 1px solid #dbdbdb;
