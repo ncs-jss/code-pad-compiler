@@ -17,7 +17,9 @@ const limiter = rateLimit({
 });
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
-app.use(express.static(publicPath));
+app.use(express.static(publicPath,{
+  extensions: ['html']
+}));
 app.use(helmet());
 app.use(responseTime());
 app.use(function(req,res,next){
