@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Admin Login</title>
+	<title>Compiler</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-<div align="center">
-<form id="login-form">
-Username
-<input type="text" id="username" style="margin-top: 20px;"">
-<br>
-Password
-<input type="password" id="password" style="margin-top: 20px;margin-bottom: 20px;">
-<br>
-<button id="login">Login</button>
-</form>
-</div>
-<script type="text/javascript" src="js/admin.js"></script>
+	<div class="content is-mobile">
+		<form id="login-form">
+		<h2>
+			Admin Panel	
+		</h2>
+		<div class="columns">
+			<div class="column is-three-fifths is-offset-one-fifth">
+			  <label class="label">Username</label>
+			  <div class="control has-icons-left">
+			    <input class="input" type="text" id="username">
+			    <span class="icon is-small is-left">
+			      <i class="fas fa-user"></i>
+			    </span>
+			  </div>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-three-fifths is-offset-one-fifth">
+			  <label class="label">Password</label>
+			  <div class="control has-icons-left">
+			    <input class="input" type="password" id="password">
+			    <span class="icon is-small is-left">
+			      <i class="fas fa-lock"></i>
+			    </span>
+			  </div>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-4 is-offset-4">
+			  <p class="control" style="text-align: center;">
+			    <button class="button is-success" id="login">
+			      Login
+			    </button>
+			  </p>
+			</div>
+		</div>
+		</form>
+	</div>
+	<script src="js/admin.js"></script>
 </body>
 </html>

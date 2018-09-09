@@ -1,7 +1,7 @@
 $(document).ready(function(){
   console.log(localStorage.getItem('x-auth'));
   if(localStorage.getItem('x-auth')===null){
-    window.location.href="/";
+    window.location.href="/admin";
   }
   else{
     var input=new Array();
@@ -42,4 +42,4 @@ function addQuestion(question,input,output,day){
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.setRequestHeader("x-auth", localStorage.getItem('x-auth'));
   xhttp.send(JSON.stringify(json));
-} 
+}

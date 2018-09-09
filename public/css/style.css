@@ -88,6 +88,12 @@ textarea{
 .animate-peek{
 animation: peek 3s ease-in-out;
 }
+thead th,tbody th{
+	text-align: center!important;
+}
+tbody th{
+	font-weight: 400;
+}
 @media only screen and (max-width: 900px) {
 	.content{
 		width: 90vw!important;
