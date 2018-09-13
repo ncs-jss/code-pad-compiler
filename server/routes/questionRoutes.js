@@ -195,15 +195,19 @@ const compileCode=async function(req,res,user,ques){
 					}
 					catch(error){
 						console.log(error);
-						res.status(400).send(err);
+						res.status(400).send(error);
 						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
 					user.questions_solved.push(ques_id);
-
-				user=await user.save();
-				res.send({status:'success',message:'correct'});
+				try{
+					user=await user.save();
+					res.send({status:'success',message:'correct'});
+				}
+				catch(error){
+					res.send(400).send(error);
+				}
 			}
 			else if(lang==='c'){
 				for(var i=0;i<ques.input.length;i++){
@@ -226,14 +230,20 @@ const compileCode=async function(req,res,user,ques){
 					}
 					catch(error){
 						console.log(error);
-						res.status(400).send();
+						res.status(400).send(error);
 						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
 					user.questions_solved.push(ques_id);
-				user=await user.save();
-				res.send({status:'success',message:'correct'});
+				try{
+	
+					user=await user.save();
+					res.send({status:'success',message:'correct'});
+				}
+				catch(error){
+					res.status(400).send(error);
+				}
 			}
 			else if(lang==='cpp'){
 				for(var i=0;i<ques.input.length;i++){
@@ -256,15 +266,19 @@ const compileCode=async function(req,res,user,ques){
 					}
 					catch(error){
 						console.log(error);
-						res.status(400).send();
+						res.status(400).send(error);
 						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
 					user.questions_solved.push(ques_id);
-
-				user=await user.save();
-				res.send({status:'success',message:'correct'});
+				try{
+					user=await user.save();
+					res.send({status:'success',message:'correct'});
+				}
+				catch(error){
+					res.status(400).send(error);
+				}
 			}
 			else if(lang==='python'){
 				for(var i=0;i<ques.input.length;i++){
@@ -287,15 +301,20 @@ const compileCode=async function(req,res,user,ques){
 					}
 					catch(error){
 						console.log(error)
-						res.status(400).send();
+						res.status(400).send(error);
 						return 0;
 					}
 				}
 				if(user.questions_solved.indexOf(ques_id)<0)
 					user.questions_solved.push(ques_id);
+				try{
 
-				user=await user.save();
-				res.send({status:'success',message:'correct'});			
+					user=await user.save();
+					res.send({status:'success',message:'correct'});			
+				}
+				catch(error){
+					res.status(400).send(error);
+				}
 			}
 		}
 		else{
