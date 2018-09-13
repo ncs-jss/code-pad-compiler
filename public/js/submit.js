@@ -63,6 +63,14 @@ $(document).ready(function(){
             $('#notify').attr('class','notification')
           },3500); 
         }
+	else if(this.readyState == 4 && this.status==400){
+		$('#submit-button').removeClass('is-loading');
+		$('#notify').html('Error');
+		$('#notify').addClass('is-danger animate-peek');
+		setTimeout(()=>{
+			$('#notify').attr('class','notification')
+		},3500);
+	}
       };
     xhttp.open("POST", window.location.origin+"/api/question/submit", true);
     xhttp.setRequestHeader("Content-type", "application/json");
