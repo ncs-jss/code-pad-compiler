@@ -4,6 +4,9 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
+      - sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      - sudo chmod +x /usr/local/bin/docker-compose
+      - docker-compose --version
       # Type the command to log in to your Docker Hub account here.          
   build:
     commands:
@@ -16,3 +19,6 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push shobhit1997/code_compiler:latest
+      - printf '[{"name":"app","imageUri":"shobhit1997/code_compiler:latest"}]' > web.json
+artifacts:
+    files: web.json
