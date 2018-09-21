@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t shobhit1997/code_compiler:latest .
+      - docker-compose build
       - docker tag shobhit1997/code_compiler:latest shobhit1997/code_compiler:latest
   post_build:
     commands:
