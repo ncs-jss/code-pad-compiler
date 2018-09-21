@@ -6,7 +6,7 @@ const jwt=require('jsonwebtoken');
 const redis = require('redis');
 const {c, cpp, node, python, java} = require('compile-run');
 const router=express.Router();
-const client = redis.createClient();
+const client = redis.createClient({host:"redis"});
 authenticate=function(req,res,next){
 	try{
 
