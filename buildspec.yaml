@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
-      - docker login --username=shobhit1997 --email=shobhit.shobhitaharwal.agarwal@gmail.com
+      - docker login --username=shobhit1997 --password=Shanu8/8/1997
       # Type the command to log in to your Docker Hub account here.          
   build:
     commands:
