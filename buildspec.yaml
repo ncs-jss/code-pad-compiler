@@ -5,6 +5,8 @@ phases:
     commands:
       - echo Logging in to Docker Hub...
       - uname -v
+      - uname -a
+      - lsb_release -a
       - apt-get update -y && apt-get install -y linux-image-extra-$(uname -r)
       - apt-get install docker-engine -y
       - service docker start
