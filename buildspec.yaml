@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
-      - docker login --username=shobhit1997 --password=Shanu8/8/1997
+      - docker login --username=$USERNAME --password=$PASSWORD
       # Type the command to log in to your Docker Hub account here.          
   build:
     commands:
@@ -17,6 +17,6 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push shobhit1997/code_compiler:latest
-      - printf '[{"name":"app","imageUri":"shobhit1997/code_compiler:latest"}]' > web.json
+      - printf '[{"name":"app","imageUri":"shobhit1997/code_compiler"}]' > web.json
 artifacts:
     files: web.json
