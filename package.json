@@ -1,0 +1,19 @@
+{
+  "name": "code-pad-compiler",
+  "version": "1.0.0",
+  "description": "Api's for codepad",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ncs-jss/code-pad-compiler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ncs-jss/code-pad-compiler/issues"
+  },
+  "homepage": "https://github.com/ncs-jss/code-pad-compiler#readme"
+}

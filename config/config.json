@@ -1,0 +1,13 @@
+{
+	"test":{
+		"PORT" : 8000,
+		"MONGODB_URI" : "mongodb://root:root123@ds113692.mlab.com:13692/attendance"
+	},
+	"development" : {
+		"PORT" : 8000,
+		"MONGODB_URI" : "mongodb://mongo:27017/code_compiler",
+		"USERNAME" : "admin",
+		"PASSWORD" : "ncs2018",
+		"JWT_SECRET" : "skfnihsfbdibfidhc"
+	}
+}
