@@ -1,0 +1,10 @@
+{
+	"test":{
+		"PORT" : "Port",
+		"CLIENT_KEY": "CLIENT_KEY"
+	},
+	"development" : {
+		"PORT" : "Port",
+		"CLIENT_KEY": "CLIENT_KEY"
+	}
+}
