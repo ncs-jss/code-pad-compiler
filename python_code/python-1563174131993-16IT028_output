@@ -1,0 +1,5 @@
+test
+Traceback (most recent call last):
+  File "python-1563174131993-16IT028.py", line 3, in <module>
+    g = raw_input() 
+EOFError: EOF when reading a line

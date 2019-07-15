@@ -4,9 +4,13 @@ const express=require('express');
 const _=require('lodash');
 const jwt=require('jsonwebtoken');
 const redis = require('redis');
+const run_python = require('../utils/python');
+const {compile_java,run_java,getClassName} = require('../utils/java');
+const {compile_cpp,run_cpp} = require('../utils/cpp');
+const {compile_c,run_c} = require('../utils/c');
 const {c, cpp, node, python, java} = require('compile-run');
 const router=express.Router();
-const client = redis.createClient({host:"redis"});
+const client = redis.createClient({host:"127.0.0.1"});
 authenticate=function(req,res,next){
 	try{
 
@@ -175,23 +179,41 @@ const compileCode=async function(req,res,user,ques){
 		if(ques){
 		client.set(ques._id,JSON.stringify(ques),redis.print);
 			if(lang==='java'){
+				console.log(getClassName);
+				let fileName;
+				try{
+				 fileName = getClassName(sourcecode);
+				}
+				catch(error){
+					res.status(201).send(error);
+					return 0;
+				}
+				const folderName = "java-"+new Date().getTime()+"-"+admission_no;
+				let message=await compile_java({fileName,folderName,sourceCode:sourcecode});
+				if(message.exitCode!=0){
+					var json={
+						error:message.output,
+						errorType:"Compile-Time"
+					};
+					res.status(201).send(json);
+					return 0;
+				}
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await java.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
-						console.log(result);
-						if(result.exitCode!=0){
+						let message=await run_java({fileName,folderName,input:ques.input[i]});
+						if(message.exitCode!=0){
 							var json={
-								error:result.stderr.substring(result.stderr.indexOf('error')),
-								errorType:result.errorType
+								error:message.output,
+								errorType:"Run-Time"
 							};
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i].trim()){
-							user=await user.save();
+						else if(message.output.trim()!=ques.output[i].trim()){
+							user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
-						}	
+						}
 					}
 					catch(error){
 						console.log(error);
@@ -210,23 +232,33 @@ const compileCode=async function(req,res,user,ques){
 				}
 			}
 			else if(lang==='c'){
+				
+				const fileName = "c-"+new Date().getTime()+"-"+admission_no;
+				let message=await compile_c({fileName,sourceCode:sourcecode});
+				if(message.exitCode!=0){
+					var json={
+						error:message.output,
+						errorType:"Compile-Time"
+					};
+					res.status(201).send(json);
+					return 0;
+				}
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await c.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
-						console.log(result);
-						if(result.exitCode!=0){
+						let message=await run_c({fileName,input:ques.input[i]});
+						if(message.exitCode!=0){
 							var json={
-								error:result.stderr.substring(result.stderr.indexOf('error')),
-								errorType:result.errorType
+								error:message.output,
+								errorType:"Run-Time"
 							};
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i].trim()){
-							user=await user.save();
+						else if(message.output.trim()!=ques.output[i].trim()){
+							user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
-						}	
+						}
 					}
 					catch(error){
 						console.log(error);
@@ -246,23 +278,32 @@ const compileCode=async function(req,res,user,ques){
 				}
 			}
 			else if(lang==='cpp'){
+				const fileName = "cpp-"+new Date().getTime()+"-"+admission_no;
+				let message=await compile_cpp({fileName,sourceCode:sourcecode});
+				if(message.exitCode!=0){
+					var json={
+						error:message.output,
+						errorType:"Compile-Time"
+					};
+					res.status(201).send(json);
+					return 0;
+				}
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await cpp.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
-						console.log(result);
-						if(result.exitCode!=0){
+						let message=await run_cpp({fileName,input:ques.input[i]});
+						if(message.exitCode!=0){
 							var json={
-								error:result.stderr.substring(result.stderr.indexOf('error')),
-								errorType:result.errorType
+								error:message.output,
+								errorType:"Run-Time"
 							};
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i].trim()){
-							user=await user.save();
+						else if(message.output.trim()!=ques.output[i].trim()){
+							user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
-						}	
+						}
 					}
 					catch(error){
 						console.log(error);
@@ -281,23 +322,23 @@ const compileCode=async function(req,res,user,ques){
 				}
 			}
 			else if(lang==='python'){
+				let fileName="python-"+new Date().getTime()+"-"+admission_no;
 				for(var i=0;i<ques.input.length;i++){
 					try{
-						var result=await python.runSource(sourcecode,{stdin:ques.input[i],timeout:2000});
-						console.log(result.stdout.trim());
-						if(result.exitCode!=0){
+						let message=await run_python({fileName,input:ques.input[i],sourceCode:sourcecode});
+						if(message.exitCode!=0){
 							var json={
-								error:result.stderr.substring(result.stderr.indexOf('error')),
-								errorType:result.errorType
+								error:message.output,
+								errorType:"Run-Time"
 							};
 							res.status(201).send(json);
 							return 0;
 						}
-						else if(result.stdout.trim()!=ques.output[i].trim()){
-							user=await user.save();
+						else if(message.output.trim()!=ques.output[i].trim()){
+							user.save();
 							res.send({status:'success',message:'wrong'});
 							return 0;
-						}	
+						}
 					}
 					catch(error){
 						console.log(error)
