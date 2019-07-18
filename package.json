@@ -29,7 +29,8 @@
     "mongoose": "^5.2.12",
     "python-shell": "^1.0.7",
     "redis": "^2.8.0",
-    "response-time": "^2.3.2"
+    "response-time": "^2.3.2",
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "apidoc": "^0.17.6"

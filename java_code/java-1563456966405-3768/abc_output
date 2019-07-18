@@ -1,4 +1,0 @@
-abc.java:1: error: class, interface, or enum expected
-importimport java.util.Scanner;
-^
-1 error
