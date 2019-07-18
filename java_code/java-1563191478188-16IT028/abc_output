@@ -1,4 +1,0 @@
-abc.java:4: error: ';' expected
-        Scanner sc=new Scanner(System.in)
-                                         ^
-1 error

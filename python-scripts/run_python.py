@@ -4,10 +4,10 @@ import subprocess
 import sys
 import json
 
-
+cwd = os.getcwd()
 fileName = sys.argv[1]
 input_data = sys.argv[2]
-folder_path='python_code/';
+folder_path='python_code';
 file_path = folder_path+'/'+fileName+'.py'
 input_path = folder_path+'/'+fileName+'_input'
 output_path = folder_path+'/'+fileName+'_output'
@@ -25,8 +25,10 @@ with open(input_path, "rb") as data:
 		        "docker",
 		        "run",
 		        "-i",
+		        '--memory=256m',
+		        '--memory-swap=256m',
 		        "-v",
-		        "/Users/apple/ncs/Code_Compiler/python_code:/usr/src/myapp",
+		        cwd+"/"+folder_path+":/usr/src/myapp",
 		        "-w",
 		        "/usr/src/myapp",
 		        "python:2",

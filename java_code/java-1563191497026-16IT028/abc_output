@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.StringIndexOutOfBoundsException: String index out of range: 8
-	at java.lang.String.charAt(String.java:658)
-	at abc.main(abc.java:6)

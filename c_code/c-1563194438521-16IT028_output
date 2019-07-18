@@ -1,7 +1,0 @@
-c-1563194438521-16IT028.c: In function 'main':
-c-1563194438521-16IT028.c:3:19: error: expected ';' before '}' token
-    3 |     printf("test")
-      |                   ^
-      |                   ;
-    4 | }
-      | ~                  

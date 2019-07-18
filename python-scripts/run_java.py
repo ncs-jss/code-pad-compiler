@@ -4,7 +4,7 @@ import subprocess
 import sys
 import json
 
-
+cwd = os.getcwd()
 folderName = sys.argv[1]
 fileName = sys.argv[2]
 folder_path='java_code/'+folderName;
@@ -22,12 +22,16 @@ with open(input_path, "rb") as data:
 		        "docker",
 		        "run",
 		        "-i",
+		        '--memory=256m',
+	        	'--memory-swap=256m',
 		        "-v",
-		        "/Users/apple/ncs/Code_Compiler/"+folder_path+":/usr/src/myapp",
+		        cwd+"/"+folder_path+":/usr/src/myapp",
 		        "-w",
 		        "/usr/src/myapp",
 		        "openjdk:8",
-		        "java",
+		        "java",        
+	        	"-Xmx1024M",
+	        	"-Xms128M",
 		        fileName,
 		    ],
 		    stdin=data,

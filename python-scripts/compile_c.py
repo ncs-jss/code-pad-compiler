@@ -4,6 +4,7 @@ import subprocess
 import sys
 import json
 
+cwd = os.getcwd()
 fileName = sys.argv[1]
 folder_path='c_code';
 file_path = folder_path+"/"+fileName+'.c'
@@ -14,12 +15,19 @@ MyOut= subprocess.Popen(
 	        "docker",
 	        "run",
 	        "-i",
+	        '--memory=256m',
+	        '--memory-swap=256m',
 	        "-v",
-	        "/Users/apple/ncs/Code_Compiler/"+folder_path+":/usr/src/myapp",
+	        cwd+"/"+folder_path+":/usr/src/myapp",
 	        "-w",
 	        "/usr/src/myapp",
 	        "gcc",
 	        "gcc",
+	        "-std=gnu99",
+	        "-w",
+	        "-O2",
+	        "-fomit-frame-pointer",
+	        "-lm",
 	        "-o",
 	        fileName,
 	        fileName+".c",

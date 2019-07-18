@@ -4,7 +4,7 @@ import subprocess
 import sys
 import json
 
-
+cwd = os.getcwd()
 fileName = sys.argv[1]
 folder_path='c_code';
 file_path = folder_path+"/"+fileName+'.c'
@@ -21,8 +21,10 @@ with open(input_path, "rb") as data:
 		        "docker",
 		        "run",
 		        "-i",
-		        "-v",
-		        "/Users/apple/ncs/Code_Compiler/"+folder_path+":/usr/src/myapp",
+		        '--memory=256m',
+	        	'--memory-swap=256m',
+	        	"-v",
+		        cwd+"/"+folder_path+":/usr/src/myapp",
 		        "-w",
 		        "/usr/src/myapp",
 		        "gcc",

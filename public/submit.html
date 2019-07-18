@@ -47,6 +47,7 @@
 			<div class="columns">
 				<div class="column">
 					<button class="button is-info" id="submit-button"><span>Submit</span></button>
+					<button class="button is-info" id="run-button"><span>Run</span></button>
 					<a class="button is-static" id="done-button" href="index.html"><span>Done</span><span class="icon is-small"><i class="fas fa-check"></i></span></a>
 				</div>
 			</div>
@@ -54,6 +55,18 @@
 				<div class="column">
 					<label class="label">Code</label>
 					<div id="editor"></div>
+				</div>
+			</div>
+			<div class="columns">
+				<div class="column">
+					<label class="label">Input</label>
+						<textarea id="input"></textarea>
+				</div>
+			</div>
+			<div class="columns">
+				<div class="column">
+					<label class="label">Output</label>
+					<textarea id="output" disabled></textarea>
 				</div>
 			</div>
 		</form>

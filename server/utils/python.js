@@ -2,7 +2,7 @@ const {PythonShell} = require('python-shell');
 const fs = require('fs');
 const path = require("path");
 
-function run_python({fileName,input,sourceCode}) {
+function run_python({fileName,input,sourceCode,timeout=5000}) {
 	return new Promise((resolve,reject)=>{
 		let args=[fileName,input];
 		if(!fs.existsSync(path.resolve(__dirname, '../../python_code/'+fileName+".py"))){

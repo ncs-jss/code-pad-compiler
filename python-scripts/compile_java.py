@@ -3,6 +3,10 @@ import time
 import subprocess
 import sys
 import json
+import os
+
+
+cwd = os.getcwd()
 
 folderName = sys.argv[1]
 fileName = sys.argv[2]
@@ -15,8 +19,10 @@ MyOut= subprocess.Popen(
 	        "docker",
 	        "run",
 	        "-i",
+	        '--memory=256m',
+	        '--memory-swap=256m',
 	        "-v",
-	        "/Users/apple/ncs/Code_Compiler/"+folder_path+":/usr/src/myapp",
+	        cwd+"/"+folder_path+":/usr/src/myapp",
 	        "-w",
 	        "/usr/src/myapp",
 	        "openjdk:8",
