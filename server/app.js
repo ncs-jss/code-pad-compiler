@@ -7,7 +7,6 @@ const bodyParser=require('body-parser');
 const responseTime = require('response-time');
 const rateLimit = require('express-rate-limit');
 const questionRoutes=require('./routes/questionRoutes');
-const userRoutes=require('./routes/userRoutes');
 const router=express.Router();
 
 app.enable("trust proxy");
@@ -31,7 +30,6 @@ app.use(function(req,res,next){
 	next();
 });
 router.use('/question',questionRoutes);
-router.use('/user',userRoutes);
 app.use("/api/", limiter);
 app.use('/api',router);
 module.exports=app;

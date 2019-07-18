@@ -2,7 +2,7 @@ const {PythonShell} = require('python-shell');
 const fs = require('fs');
 const path = require("path");
 
-function compile_c({fileName,sourceCode}) {
+function compile_c({fileName,sourceCode,timeout=60000}) {
 	return new Promise((resolve,reject)=>{
 		let args=[fileName];
 		if(!fs.existsSync(path.resolve(__dirname, '../../c_code/'+fileName+".c"))){
@@ -12,6 +12,9 @@ function compile_c({fileName,sourceCode}) {
 			const pyshell = new PythonShell('python-scripts/compile_c.py', {
 				args
 			});
+			const stTime = setTimeout(function(){
+				resolve({exitCode:3,output:'Time Limit Exceeded'});
+			},timeout);
 			pyshell.on('message', message => {
 				// received a message sent from the Python script (a simple "print" statement)
 				message=JSON.parse(message)
