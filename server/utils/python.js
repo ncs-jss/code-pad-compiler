@@ -1,7 +1,7 @@
 const {PythonShell} = require('python-shell');
 const fs = require('fs');
 const path = require("path");
-
+const {compile,run} = require('../js-scripts/python')
 function run_python({fileName,input,sourceCode,timeout=5000}) {
 	return new Promise((resolve,reject)=>{
 		let args=[fileName,input];
@@ -9,20 +9,8 @@ function run_python({fileName,input,sourceCode,timeout=5000}) {
 			fs.writeFileSync(path.resolve(__dirname, '../../python_code/'+fileName+".py"),sourceCode);
 		}
 		try {
-			const pyshell = new PythonShell('python-scripts/run_python.py', {
-				args
-			});
-			pyshell.on('message', message => {
-				// received a message sent from the Python script (a simple "print" statement)
-				message=JSON.parse(message)
-				let data=fs.readFileSync(path.resolve(__dirname, '../../'+message.path),"utf8");
-				message.output=data;
-				delete message.path;
-				resolve(message);
-			});
-			const stTime = setTimeout(function(){
-				resolve({exitCode:3,output:'Time Limit Exceeded'});
-			},timeout);
+			let resp =run(fileName,input);
+			resolve(resp);
 		} catch (error) {
 				console.trace(error);
 				reject(error);
