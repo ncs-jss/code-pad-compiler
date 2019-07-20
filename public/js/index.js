@@ -1,21 +1,144 @@
 function loadSettings() {
-    var editor = ace.edit("editor");
-    $("#lang").val(localStorage.lang).change();
-    editor.setValue(localStorage.code);
-    // editor.session.setMode("ace/mode/"+getLang($("#lang option:selected").val()));
+    sessionStorage.tabs=sessionStorage.tabs||1;
+    sessionStorage.tabData=sessionStorage.tabData||JSON.stringify({});
+    if(!sessionStorage.currentTab){
+      sessionStorage.currentTab='tab-1';
+      resetTab();
+      saveCurrentTabData();
+    }
+    restoreTab();
+    $(`#li-${sessionStorage.currentTab}`).addClass("active");
 }
 function saveSettings() {
-    var editor = ace.edit("editor");
-    localStorage.code = editor.getValue();
-    localStorage.lang = $("#lang option:selected").val();
+  console.log("test");
+    saveCurrentTabData();
 }
 function getLang(lang){
   if(lang=='c'||lang=='cpp')
     return 'c_cpp';
   return lang;
 }
+function restoreTab(){
+  const tabData = JSON.parse(sessionStorage.tabData);
+  Object.keys(tabData).forEach(key=>{
+    const tabHTML = `<li class="" id="li-${key}"><a style="display:inline-flex;"data-toggle="tab"><p id="${key}">IDE</p><button id="close-${key}" class="close" type="button" >×</button></a></li>` 
+    $( tabHTML ).insertBefore( $( "#add-button" ) );
+    var editor = ace.edit("editor");
+    $(`#${key}`).on('click',function(e){
+      if(this.id!='add-button'&&this.id!=sessionStorage.currentTab)
+      {
+        saveCurrentTabData();
+        sessionStorage.currentTab=this.id;
+        setCurrentTabData();  
+      }
+    });
+
+    $(`#close-${key}`).on('click',function(e){
+      const tab=this.id.substring(this.id.indexOf('-')+1);
+      let currentTab = sessionStorage.currentTab;
+      const tabData=JSON.parse(sessionStorage.tabData);
+      let tabs = Object.keys(tabData);
+      $(`#li-${tab}`).remove();
+      delete tabData[tab];
+      sessionStorage.tabData=JSON.stringify(tabData);
+      if(currentTab===tab){
+        if(tabs.length===1){
+          sessionStorage.clear();
+          loadSettings();
+        }
+        else if(tabs.indexOf(tab)===0){
+          sessionStorage.currentTab=tabs[tabs.indexOf(tab)+1];
+        }
+        else{
+          sessionStorage.currentTab=tabs[tabs.indexOf(tab)-1];
+        }
+      }
+    });
+  })
+  setCurrentTabData();
+}
+function addTabInList(){
+  const tabs = parseInt(sessionStorage.tabs||1);
+  const key =`tab-${tabs+1}`;
+  console.log(key);
+  const tabHTML = `<li class="active" id="li-${key}"><a style="display:inline-flex;"data-toggle="tab"><p id="${key}">IDE</p><button id="close-${key}" class="close" type="button" >×</button></a></li>` 
+  $( tabHTML ).insertBefore( $( "#add-button" ) );
+  sessionStorage.tabs=tabs+1;
+  saveCurrentTabData();
+  resetTab();
+  sessionStorage.currentTab=key;
+  saveCurrentTabData();
+  $(`#${key}`).on('click',function(e){
+    if(this.id!='add-button'&&this.id!=sessionStorage.currentTab)
+      {
+        saveCurrentTabData();
+        sessionStorage.currentTab=this.id;
+        setCurrentTabData();  
+      }
+    
+  });
+  $(`#close-${key}`).on('click',function(e){
+      const tab=this.id.substring(this.id.indexOf('-')+1);
+      console.log(tab)
+      let currentTab = sessionStorage.currentTab;
+      let tabData=JSON.parse(sessionStorage.tabData);
+      let tabs = Object.keys(tabData);
+      $(`#li-${tab}`).remove();
+      delete tabData[tab];
+      sessionStorage.tabData=JSON.stringify(tabData);
+      if(currentTab===tab){
+        if(tabs.length===1){
+          sessionStorage.clear();
+          loadSettings();
+        }
+        else if(tabs.indexOf(tab)===0){
+          sessionStorage.currentTab=tabs[tabs.indexOf(tab)+1];
+        }
+        else{
+          sessionStorage.currentTab=tabs[tabs.indexOf(tab)-1];
+        }
+      }
+    });
+}
+function resetTab(){
+  var editor = ace.edit("editor");
+  editor.setValue('');
+  $("#lang").val('c').change();
+  editor.session.setMode("ace/mode/c_cpp");
+  $("#input").val('')
+  $("#output").val('')
+}
+function saveCurrentTabData(){
+  const currentTab = sessionStorage.currentTab;
+  const tabData = JSON.parse(sessionStorage.tabData);
+  var editor = ace.edit("editor");
+  var data={
+    code:editor.getValue(),
+    lang:$("#lang option:selected").val(),
+    input:$("#input").val(),
+    output:$("#input").val()
+  }
+  tabData[`${currentTab}`]=data;
+  sessionStorage.tabData=JSON.stringify(tabData);
+  $(`#li-${currentTab}`).toggleClass("active");
+}
+
+function setCurrentTabData(){
+  const currentTab = sessionStorage.currentTab;
+  const tabData = JSON.parse(sessionStorage.tabData);
+  var editor = ace.edit("editor");
+  console.log(tabData);
+  editor.setValue(tabData[currentTab].code);
+  $("#lang").val(tabData[currentTab].lang).change();
+  editor.session.setMode("ace/mode/"+getLang(tabData[currentTab].lang));
+  $("#input").val(tabData[currentTab].input)
+  $("#output").val(tabData[currentTab].output)
+  $(`#${currentTab}`).toggleClass("active");
+}
+
 $(document).ready(function(){
   $(window).on('beforeunload',function(){
+      console.log("test");
       saveSettings();
     });
   loadSettings();
@@ -25,14 +148,17 @@ $(document).ready(function(){
   jQuery('#lang').on('change',function(){
       editor.session.setMode("ace/mode/"+getLang($("#lang option:selected").val()));
     });
-  jQuery('#run-button').on('click',function(e){
+  jQuery('#add-tab-button').on('click',function(e){
+    addTabInList();
 
+  });
+  jQuery('#code').on('submit',function(e){
+      e.preventDefault();
       var jsonObj={
         code : editor.getValue(),
         lang : $("#lang option:selected").val(),
         input : $("#input").val()
       };
-    e.preventDefault();
     $('#run-button').addClass('is-loading');
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){

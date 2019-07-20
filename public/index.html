@@ -4,11 +4,13 @@
 	<title>NCS | Compiler</title>
 	<link rel="icon" href="css/favicon.ico"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125470790-1"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
@@ -19,13 +21,19 @@
 	</script>
 </head>
 <body>
+	<ul class="nav nav-tabs" id="tab_pane">
+	    <li id="add-button"><div class="list-group-append">
+  				<button class="button" id="add-tab-button">+</button>	
+  			</div>
+  		</li>
+  	</ul>
 	<div class="content">
 		<form id="code">
 			<div class="columns">
 				<div class="column" style="height: 60px;z-index: 1">
 					<div class="select">
 						<label class="label" style="display: inline-block;margin-top: 5px;">Language</label>
-						<select id="lang">
+						<select id="lang" id="select">
 							<option value="c">C</option>
 							<option value="cpp">C++</option>
 							<option value="java">Java</option>
@@ -36,7 +44,7 @@
 			</div>
 			<div class="columns">
 				<div class="column">
-					<button class="button is-info" id="run-button"><span>Run</span></button>
+					<button class="button is-info" id="run-button-1"><span>Run</span></button>
 				</div>
 			</div>
 			<div class="columns">
@@ -58,6 +66,7 @@
 				</div>
 			</div>
 		</form>
+		
 	</div>
 	<div class="notification" id="notify"></div>
 <script src="/js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>

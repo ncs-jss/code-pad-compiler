@@ -14,6 +14,9 @@ body{
 .select select{
 	display: inline-block;
 }
+.nav-tabs > li .close {
+    margin: -2px 0 0 10px;
+}
 label.custom-label{
 	line-height: 2.25em;
 	padding: 8px 15px;
