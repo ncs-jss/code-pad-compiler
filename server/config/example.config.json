@@ -1,0 +1,17 @@
+{
+	"test":{
+		"PORT":9900,
+		"MONGODB_URI":"mongodb://127.0.0.1:27017/name",
+		"JWT_SECRET":"sjfbiuehsf98iuehwsdiuxkjhnduis",
+		"USERNAME":"username",
+		"PASSWORD":"password"
+	},
+	"development":{
+		"PORT":9000,
+		"MONGODB_URI":"mongodb://127.0.0.1:27017/name",
+		"JWT_SECRET":"sjfbiuehsf98iuehwsdiuxkjhnduis",
+		"USERNAME":"username",
+		"PASSWORD":"password"
+	}
+
+}

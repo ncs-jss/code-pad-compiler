@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Docker Hub...
+      - docker login --username=$USERNAME --password=$PASSWORD
+      # Type the command to log in to your Docker Hub account here.          
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker-compose build
+      - docker tag shobhit1997/code_compiler:latest shobhit1997/code_compiler:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push shobhit1997/code_compiler:latest
+      - printf '[{"name":"app","imageUri":"shobhit1997/code_compiler"}]' > web.json
+artifacts:
+    files: web.json

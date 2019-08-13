@@ -1,0 +1,13 @@
+version: "2"
+services:
+  java:
+    container_name: java
+    image: openjdk:8
+
+  gcc:
+    container_name: gcc
+    image: gcc
+
+  python:
+    container_name: python
+    image: python:2
