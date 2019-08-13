@@ -7,7 +7,7 @@ function loadSettings() {
       saveCurrentTabData();
     }
     restoreTab();
-    $(`#li-${sessionStorage.currentTab}`).addClass("active");
+    $(`#${sessionStorage.currentTab}`).addClass("active");
 }
 function saveSettings() {
   console.log("test");
@@ -21,7 +21,7 @@ function getLang(lang){
 function restoreTab(){
   const tabData = JSON.parse(sessionStorage.tabData);
   Object.keys(tabData).forEach(key=>{
-    const tabHTML = `<li class="" id="li-${key}"><a style="display:inline-flex;"data-toggle="tab"><p id="${key}">IDE</p><button id="close-${key}" class="close" type="button" >×</button></a></li>` 
+    const tabHTML = `<li class="" id="${key}"><a style="display:inline-flex;"data-toggle="tab"><span>IDE</span><button id="close-${key}" class="close" onclick="event.stopPropogation()" type="button" >×</button></a></li>` 
     $( tabHTML ).insertBefore( $( "#add-button" ) );
     var editor = ace.edit("editor");
     $(`#${key}`).on('click',function(e){
@@ -33,12 +33,13 @@ function restoreTab(){
       }
     });
 
-    $(`#close-${key}`).on('click',function(e){
+    $(`#close-${key}`).on('click',function(){
+      // e.stopPropogation();
       const tab=this.id.substring(this.id.indexOf('-')+1);
       let currentTab = sessionStorage.currentTab;
       const tabData=JSON.parse(sessionStorage.tabData);
       let tabs = Object.keys(tabData);
-      $(`#li-${tab}`).remove();
+      $(`#${tab}`).remove();
       delete tabData[tab];
       sessionStorage.tabData=JSON.stringify(tabData);
       if(currentTab===tab){
@@ -61,13 +62,12 @@ function addTabInList(){
   const tabs = parseInt(sessionStorage.tabs||1);
   const key =`tab-${tabs+1}`;
   console.log(key);
-  const tabHTML = `<li class="active" id="li-${key}"><a style="display:inline-flex;"data-toggle="tab"><p id="${key}">IDE</p><button id="close-${key}" class="close" type="button" >×</button></a></li>` 
+  const tabHTML = `<li class="active" id="${key}"><a style="display:inline-flex;"data-toggle="tab"><span>IDE</span><button id="close-${key}" class="close" type="button" onclick="event.stopPropogation()">×</button></a></li>` 
   $( tabHTML ).insertBefore( $( "#add-button" ) );
   sessionStorage.tabs=tabs+1;
   saveCurrentTabData();
-  resetTab();
   sessionStorage.currentTab=key;
-  saveCurrentTabData();
+  resetTab();
   $(`#${key}`).on('click',function(e){
     if(this.id!='add-button'&&this.id!=sessionStorage.currentTab)
       {
@@ -77,13 +77,13 @@ function addTabInList(){
       }
     
   });
-  $(`#close-${key}`).on('click',function(e){
+  $(`#close-${key}`).on('click',function(){
       const tab=this.id.substring(this.id.indexOf('-')+1);
       console.log(tab)
       let currentTab = sessionStorage.currentTab;
       let tabData=JSON.parse(sessionStorage.tabData);
       let tabs = Object.keys(tabData);
-      $(`#li-${tab}`).remove();
+      $(`#${tab}`).remove();
       delete tabData[tab];
       sessionStorage.tabData=JSON.stringify(tabData);
       if(currentTab===tab){
@@ -93,9 +93,11 @@ function addTabInList(){
         }
         else if(tabs.indexOf(tab)===0){
           sessionStorage.currentTab=tabs[tabs.indexOf(tab)+1];
+          setCurrentTabData();
         }
         else{
           sessionStorage.currentTab=tabs[tabs.indexOf(tab)-1];
+          setCurrentTabData();
         }
       }
     });
@@ -107,6 +109,17 @@ function resetTab(){
   editor.session.setMode("ace/mode/c_cpp");
   $("#input").val('')
   $("#output").val('')
+  const currentTab = sessionStorage.currentTab;
+  const tabData = JSON.parse(sessionStorage.tabData);
+  var editor = ace.edit("editor");
+  var data={
+    code:editor.getValue(),
+    lang:$("#lang option:selected").val(),
+    input:$("#input").val(),
+    output:$("#input").val()
+  }
+  tabData[`${currentTab}`]=data;
+  sessionStorage.tabData=JSON.stringify(tabData);
 }
 function saveCurrentTabData(){
   const currentTab = sessionStorage.currentTab;
@@ -120,7 +133,7 @@ function saveCurrentTabData(){
   }
   tabData[`${currentTab}`]=data;
   sessionStorage.tabData=JSON.stringify(tabData);
-  $(`#li-${currentTab}`).toggleClass("active");
+  $(`#${currentTab}`).removeClass("active");
 }
 
 function setCurrentTabData(){
@@ -133,7 +146,7 @@ function setCurrentTabData(){
   editor.session.setMode("ace/mode/"+getLang(tabData[currentTab].lang));
   $("#input").val(tabData[currentTab].input)
   $("#output").val(tabData[currentTab].output)
-  $(`#${currentTab}`).toggleClass("active");
+  $(`#${currentTab}`).addClass("active");
 }
 
 $(document).ready(function(){
