@@ -7,7 +7,7 @@ function run(fileName,input,timeout=10000){
 	let file_path = folder_path+"/"+fileName+'.py'
 	let input_path = folder_path+"/"+fileName+'_input.txt'
 	fs.writeFileSync(path.resolve(__dirname, `../../${input_path}`),input);
-	const cmd = `docker run -i --memory=256m --memory-swap=256m -v  "$PWD"/${folder_path}/:/usr/src/myapp -w /usr/src/myapp python:2 python ${fileName}.py < "$PWD"/${input_path}`;
+	const cmd = `sudo docker run -i --memory=256m --memory-swap=256m -v  "$PWD"/${folder_path}/:/usr/src/myapp -w /usr/src/myapp python:2 python ${fileName}.py < "$PWD"/${input_path}`;
 	const result = shell.exec(cmd,{timeout});
 	const jsonResp = {};
 	jsonResp.exitCode=result.code;
