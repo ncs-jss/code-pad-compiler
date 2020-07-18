@@ -25,7 +25,7 @@
     "express-rate-limit": "^3.1.1",
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "mongoose": "^5.2.12",
     "python-shell": "^1.0.7",
     "redis": "^2.8.0",
