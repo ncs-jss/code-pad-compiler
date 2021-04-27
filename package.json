@@ -28,7 +28,7 @@
     "lodash": "^4.17.14",
     "mongoose": "^5.2.12",
     "python-shell": "^1.0.7",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "response-time": "^2.3.2",
     "shelljs": "^0.8.3"
   },
