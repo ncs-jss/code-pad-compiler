@@ -30,7 +30,7 @@
     "python-shell": "^1.0.7",
     "redis": "^2.8.0",
     "response-time": "^2.3.2",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "apidoc": "^0.17.6"
