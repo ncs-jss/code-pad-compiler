@@ -21,7 +21,7 @@
   "dependencies": {
     "ace-builds": "^1.4.5",
     "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-rate-limit": "^3.1.1",
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
